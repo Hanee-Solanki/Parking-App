@@ -6,7 +6,6 @@ from datetime import datetime,timezone
 from flask_bcrypt import Bcrypt
 from functools import wraps
 from models import db,User,ParkingLot,ParkingSpot,Reservation
-from collections import defaultdict
 import random
 
 app = Flask(__name__)
@@ -15,8 +14,6 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///site.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config['SECRET_KEY']='wsxedcr'
-#app.config['SECURITY_PASSWORD_SALT']='eenah%%kicn'
-#app.config['SECURITY_REGISTERABLE']=True
 
 
 #connecting database and app with init_app
