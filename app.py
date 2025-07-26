@@ -232,17 +232,6 @@ def delete_lot(lot_id):
         flash('Parking Lot deleted successfully','success')
         return redirect(url_for('admin_dashboard'))
 
-'''@app.route('/delete_stall/<int:stall_id>',methods=['POST'])
-@admin_required
-def delete_stall(stall_id):
-    stall=ParkingSpot.query.get_or_404(stall_id)
-    if stall.status=='A':
-        db.session.delete(stall)
-        db.session.commit()
-        flash('Stall deleted successfully','Success')
-    else:
-        flash('Cannot delete an occupied stall','danger')
-    return redirect(url_for('admin_dashboard'))'''
 
 @app.route('/view_user_history/<int:user_id>')
 @admin_required

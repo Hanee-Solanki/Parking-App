@@ -24,6 +24,7 @@
             <thead class="table-light">
                 <tr>
                     <th>Reservation ID</th>
+                    <th>Location Name</th>
                     <th>Stall Number</th>
                     <th>Start Time</th>
                     <th>End Time</th>
@@ -35,6 +36,7 @@
                     {% if r.end_time %}
                     <tr>
                         <td>{{ r.reservation_id }}</td>
+                        <td>{{ r.stall.lot.location_name }}</td>
                         <td>{{ r.stall_id }}</td>
                         <td>{{ r.start_time.strftime('%Y-%m-%d %H:%M') }}</td>
                         <td>{{ r.end_time.strftime('%Y-%m-%d %H:%M') }}</td>
