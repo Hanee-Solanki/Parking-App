@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}View {{location_name}}{% endblock %}
+{% block content %}
+<header class="site-header text-center py-3">
+    <a href="{{ url_for('home') }}">
+        <img src="{{ url_for('static', filename='/images/logo.png') }}" alt="Logo" class="site-logo">
+    </a>
+</header>
+<div class="container mt-5 pt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-green">View Lot - {{ location_name }}</h2>
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary btn-sm">← Back to Dashboard</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body table-responsive">
+            <table class="table table-bordered align-middle text-center">
+                <thead class="table-light">
+                    <tr>
+                        <th>Stall Number</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for parkingspot in parkingspots %}
+                    <tr>
+                        <td>{{ parkingspot.stall_id }}</td>
+                        <td>
+                            {% if parkingspot.status == 'A' %}
+                                <span class="badge bg-success">Available</span>
+                            {% elif parkingspot.status == 'O' %}
+                                <span class="badge bg-danger">Occupied</span>
+                            {% else %}
+                                <span class="badge bg-secondary">{{ parkingspot.status }}</span>
+                            {% endif %}
+                        </td>                       
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

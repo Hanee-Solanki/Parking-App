@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Transaction History {% endblock %}
+{% block content %}
+<header class="site-header text-center py-3">
+    <a href="{{ url_for('home') }}">
+        <img src="{{ url_for('static', filename='/images/logo.png') }}" alt="Logo" class="site-logo">
+    </a>
+</header>
+
+<div>
+    <div class="card shadow-sm">
+        <div class="card-header bg-green text-white">
+            <h5 class="mb-0">Transaction History</h5>
+            <br>
+            {% if current_user.role=='admin' %}
+            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary btn-sm">← Back to Dashboard</a>
+            {% else %}
+            <a href="{{ url_for('user_dashboard') }}" class="btn btn-outline-secondary btn-sm">← Back to Dashboard</a>
+            {% endif %}
+        </div>
+    <div class="card-body table-responsive">
+        {% if reservations %}
+        <table class="table table-bordered align-middle text-center">
+            <thead class="table-light">
+                <tr>
+                    <th>Reservation ID</th>
+                    <th>Stall Number</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Total Charges</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in reservations %}
+                    {% if r.end_time %}
+                    <tr>
+                        <td>{{ r.reservation_id }}</td>
+                        <td>{{ r.stall_id }}</td>
+                        <td>{{ r.start_time.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>{{ r.end_time.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>{{ r.charges }}</td> 
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="text-muted text-center mb-0">There is no transaction history</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Admin Login {% endblock %}
+{% block content %}
+<header class="site-header text-center py-3">
+    <a href="{{ url_for('home') }}">
+        <img src="{{ url_for('static', filename='/images/logo.png') }}" alt="Logo" class="site-logo">
+    </a>
+</header>
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="login-card shadow p-4 rounded bg-white" style="max-width: 400px; width: 100%;">
+        <h2 class="text-center mb-4">ADMIN LOGIN</h2>
+        <form action="{{ url_for('admin_login') }}" method="POST" id="admin-form">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required/>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required/>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-green">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,16 +1,83 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <!--Meta tags-->
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-        <!--Bootstrap CSS-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"/>
-        <title>{{ title }}</title>
-    </head>
-    <body>
-        <div class="container">
-            <h1>Welcome, {{ username }}!</h1>
-        </div>
-    </body>
-</html>
+{% extends "base.html" %}
+{% block title %}ParkIt{% endblock %}
+{% block content %}
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg fixed-top shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center" href="{{ url_for('home') }}">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="ParkIt Logo" class="site-logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('user_registration') }}">CREATE ACCOUNT</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('user_login') }}">USER LOGIN</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_login') }}">ADMIN LOGIN</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Carousel -->
+<div id="parkitCarousel" class="carousel slide mt-5 pt-4" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{{ url_for('static', filename='images/carousel1.jpg') }}" class="d-block w-100 h-70" alt="Slide 1">
+      <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+        <h4 style="color:beige">Smart Parking, Simplified</h4>
+        <p>Reserve spots in seconds, stress-free.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{{ url_for('static', filename='images/carousel2.jpg') }}" class="d-block w-100 h-70" alt="Slide 2">
+      <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+        <h4 style="color:beige">Real-Time Availability</h4>
+        <p>Check parking status live across Calgary</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{{ url_for('static', filename='images/carousel3.jpg') }}" class="d-block w-100 h-70" alt="Slide 3">
+      <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+        <h4 style="color:beige">Flexible and Transparent</h4>
+        <p>Pay only for the time you use.</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#parkitCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#parkitCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+
+<!-- Misc Section -->
+<div class="container my-5">
+  <div class="row text-center">
+    <div class="col-md-4 mb-4">
+      <img src="{{ url_for('static', filename='images/icon1.svg') }}" alt="Contact" width="60" class="mb-3">
+      <h5>Help & Contact</h5>
+      <p>Have questions, feedback or concerns? Reach out to us at info@parkit.com!</p>
+    </div>
+    <div class="col-md-4 mb-4">
+      <img src="{{ url_for('static', filename='images/icon2.svg') }}" alt="Partnership" width="60" class="mb-3">
+      <h5>ParkIt | Business</h5>
+      <p>Connect with us to explore partnership opportunities</p>
+    </div>
+    <div class="col-md-4 mb-4">
+      <img src="{{ url_for('static', filename='images/icon3.svg') }}" alt="Careers" width="60" class="mb-3">
+      <h5>Careers</h5>
+      <p>We are always looking for decicated and enthusiastic individuals to join our team across the city </p>
+    </div>
+  </div>
+</div>
+
+<footer style="text-align: center;">
+  Privacy Policy | &copy; ParkIt Canada Inc 2025. All rights reserved | Calgary 
+</footer>
+
+
+{% endblock %}

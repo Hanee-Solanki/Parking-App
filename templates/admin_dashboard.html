@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div>
+    <div>
+        <nav class="navbar fixed-top navbar-expand-lg">
+            <a class="navbar-brand d-flex align-items-center" href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="ParkIt Logo" class="site-logo">
+            </a>
+            <ul class="nav nav-table">
+                <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#charts">SUMMARY</a></li>
+                <li class="nav-item"><a class="nav-link"  href="/create_lot">CREATE A NEW LOT</a></li>
+                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#lots">MANAGE LOTS</a></li>
+                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#users">USERS</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('logout')}}">LOG OUT</a></li>
+            </ul>
+        </nav>
+        <div class="tab-content">
+            <br>
+            <br>
+            <div class="tab-pane show active" id="charts">
+                <div class="row mt-5">
+                    <div class="col-md-4">
+                        <div class="card shadow-sm">
+                            <div class="card-header">Parking Lot Occupancy</div> 
+                            <div class="card-body">
+                                <canvas id="parkingLotOccupancy"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card shadow-sm">
+                            <div class="card-header">Total Revenue($)</div>
+                            <div class="card-body">
+                                <canvas id="revenue"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="lots">
+                <br> 
+                <br>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Lot id</th>
+                            <th>Location Name</th>
+                            <th>Address</th>
+                            <th>Postal Code</th>
+                            <th>Maximum Spots</th>
+                            <th>Price per hour</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for parkinglot in parkinglots %}
+                        <tr>
+                            <td>{{ parkinglot.lot_id }}</td>
+                            <td>{{ parkinglot.location_name }}</td>
+                            <td>{{ parkinglot.address }}</td>
+                            <td>{{ parkinglot.postal_code }}</td>
+                            <td>{{ parkinglot.max_spots }}</td>
+                            <td>{{ parkinglot.price }}</td>
+                            <td>
+                                <form action="/view_lot/{{ parkinglot.lot_id }}" method="GET" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-light">View</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="/edit_lot/{{ parkinglot.lot_id }}" method="GET" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-light" >Edit</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="delete_lot/{{ parkinglot.lot_id }}" method="POST" style="display: inline;">
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="users">
+                <br>
+                <br>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>User id</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>
+                                <form action="/view_user_history/{{ user.id }}" method="GET" style="display: inline;">
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary">View User History</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script>
+    const spotData = {{ spot_data | safe }};
+    const totalRevenue = {{ total_revenue | safe }};
+    const ctx1 = new Chart(document.getElementById("parkingLotOccupancy"),{
+        type:'pie',
+        data:{
+            labels:['Available','Occupied'],
+            datasets:[{
+                label:'Parking Lot Occupancy',
+                data:spotData,
+                backgroundColor:[
+                    '#93c47d',
+                    '#e06666'
+                ],
+                hoverOffset: 4
+            }] 
+        }
+    });
+
+    const ctx2 = new Chart(document.getElementById("revenue"),{
+        type:'bar',
+        data:{
+            labels:['Revenue'],
+            datasets:[{
+                data:[totalRevenue],
+                label: 'Revenue ($)',
+                backgroundColor:'#76a5af',
+                barThickness:40
+            }]
+        },
+        options:{
+            responsive:true,
+            maintainAspectRatio:false,
+            scales:{
+                x:{
+                    grid:{
+                        display:false
+                    },
+                    ticks:{
+                        display:false
+                    }
+                },
+                y:{
+                    beginAtZero:true,
+                    grid:{
+                        drawBorder:false
+                    }
+                }
+            },
+             plugins:{
+                legend:{
+                    display:false
+                }
+            }
+        }
+    });
+    
+    
+</script>
+
+{% endblock %}

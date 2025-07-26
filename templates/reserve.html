@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Reservation{% endblock %}
+{% block content %}
+<header class="site-header text-center py-3">
+    <a href="{{ url_for('home') }}">
+        <img src="{{ url_for('static', filename='/images/logo.png') }}" alt="Logo" class="site-logo">
+    </a>
+</header>
+<div class="container mt-5 mb-5">
+    <h2 class="text-center mb-4">Available Parking Lots</h2>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for parkinglot in parkinglots %}
+        <div class="col">
+            <div class="card border-success h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-success">{{ parkinglot.location_name }}</h5>
+                    <p class="card-text">
+                        <strong>Address:</strong> {{ parkinglot.address }}<br>
+                        <strong>Postal Code:</strong> {{ parkinglot.postal_code }}<br>
+                        <strong>Price per hour:</strong> ${{ parkinglot.price }}<br>
+                        <strong>Available spots:</strong>
+                        {{
+                            parkinglot.max_spots - parkinglot.spots | selectattr('status','equalto','O') | list | length
+                        }}
+                    </p>
+                    <form action="{{ url_for('reserve') }}" method="POST">
+                        <input type="hidden" name="lot_id" value="{{ parkinglot.lot_id }}">
+                        <button type="submit" class="btn btn-green w-100">Reserve</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

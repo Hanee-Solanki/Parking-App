@@ -1,0 +1,139 @@
+/* General resets */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+h1, h2, h3, h4, h5 {
+    margin: 0;
+    color: #031602;
+}
+
+/* Navbar */
+.navbar {
+    background-color: white;
+    padding: 1rem 2rem;
+}
+
+.navbar .nav-link {
+    color: #021801;
+    margin-right: 20px;
+    transition: color 0.3s;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+    font-weight: bold;
+    border-bottom: 2px solid #ffc107;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    background-color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+table th, table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+table th {
+    background-color: #f0f0f0;
+}
+
+/* Buttons */
+
+
+/* Tab pane spacing */
+.tab-content {
+    padding: 2rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .navbar .nav-link {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    table thead {
+        display: none;
+    }
+
+    table tr {
+        margin-bottom: 1rem;
+        background-color: #fff;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    table td {
+        padding: 8px;
+        text-align: right;
+        position: relative;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 16px;
+        font-weight: bold;
+        text-transform: capitalize;
+    }
+}
+
+.site-header {
+    background-color: white;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.site-logo {
+    height: 50px;
+    object-fit: contain;
+    transition: transform 0.3s ease-in-out;
+}
+
+.site-logo:hover {
+    transform: scale(1.05);
+}
+
+/* Login Card */
+.login-card {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+.btn-green {
+    background-color: #28a745;
+    color: white;
+    border: none;
+}
+
+.btn-green:hover {
+    background-color: #218838;
+}
+
+/* Carousel */
+.carousel-item img{
+    height: 400px;
+    object-fit: cover;
+    width:100%;
+}
